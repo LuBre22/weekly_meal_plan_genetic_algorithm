@@ -1,0 +1,201 @@
+id,name,calories,protein_g,fat_g,carbs_g,meal_types
+1,Greek yogurt and berries,250,23,4,32,breakfast
+2,Oatmeal with banana,405,16,5,75,breakfast
+3,Egg and avocado toast,405,22,18,40,breakfast
+4,Cottage cheese and fruit,240,24,5,26,breakfast
+5,Peanut butter banana toast,425,15,17,57,breakfast
+6,Berry protein smoothie,285,35,3,31,breakfast
+7,Veggie omelet,330,25,22,9,breakfast
+8,Overnight oats,365,22,6,56,breakfast
+9,Breakfast burrito,425,24,15,48,breakfast|lunch
+10,Smoked salmon bagel,385,25,8,53,breakfast|lunch
+11,Chicken rice bowl,550,51,7,70,lunch|dinner
+12,Turkey sandwich,375,37,5,45,lunch
+13,Tuna pasta salad,440,39,4,62,lunch|dinner
+14,Lentil soup and bread,360,20,7,54,lunch|dinner
+15,Chicken Caesar wrap,475,42,15,43,lunch|dinner
+16,Quinoa chickpea salad,440,18,8,74,lunch|dinner
+17,Beef and rice bowl,590,44,16,68,lunch|dinner
+18,Tofu stir-fry,500,26,16,63,lunch|dinner
+19,Salmon and potatoes,555,39,19,57,lunch|dinner
+20,Chicken pasta,590,56,7,76,lunch|dinner
+21,Turkey chili,545,40,11,71,lunch|dinner
+22,Bean burrito bowl,435,19,4,81,lunch|dinner
+23,Shrimp stir-fry,455,39,4,67,lunch|dinner
+24,Egg fried rice,475,19,14,68,lunch|dinner
+25,Chicken and sweet potato,510,51,6,63,lunch|dinner
+26,Beef meatballs and pasta,625,42,18,73,lunch|dinner
+27,Baked cod and rice,465,46,3,64,lunch|dinner
+28,Chickpea curry,545,19,11,93,lunch|dinner
+29,Pork loin and potatoes,510,47,10,57,lunch|dinner
+30,Turkey burger plate,485,39,13,53,lunch|dinner
+31,Apple cinnamon oatmeal,480,22,12,71,breakfast
+32,Blueberry almond oatmeal,530,24,17,70,breakfast
+33,Chocolate peanut overnight oats,620,35,20,75,breakfast
+34,Strawberry yogurt oats,510,32,10,73,breakfast
+35,Banana walnut porridge,560,20,20,75,breakfast
+36,Pumpkin spice oats,490,24,14,67,breakfast
+37,Peach cottage cheese oats,500,32,12,66,breakfast
+38,Apple chia overnight oats,520,24,16,70,breakfast
+39,Maple pecan oatmeal,590,20,23,76,breakfast
+40,Mocha protein oats,570,38,14,73,breakfast
+41,Spinach feta omelet,500,35,28,27,breakfast
+42,Mushroom cheese omelet,520,35,32,23,breakfast
+43,Turkey egg scramble,520,45,24,31,breakfast
+44,Salmon egg scramble,560,40,28,37,breakfast
+45,Black bean egg tacos,610,37,22,66,breakfast|lunch
+46,Egg and potato hash,620,32,24,69,breakfast|lunch
+47,Chicken breakfast burrito,740,50,24,81,breakfast|lunch
+48,Steak breakfast burrito,780,48,30,80,breakfast|lunch
+49,Tofu breakfast scramble,490,30,22,43,breakfast
+50,Chickpea breakfast hash,570,25,18,77,breakfast|lunch
+51,Strawberry yogurt parfait,480,30,12,63,breakfast
+52,Chocolate yogurt parfait,550,36,16,66,breakfast
+53,Mango coconut yogurt bowl,540,27,18,68,breakfast
+54,Apple cinnamon yogurt bowl,500,30,12,68,breakfast
+55,Banana granola yogurt bowl,610,35,17,79,breakfast
+56,Raspberry cottage cheese bowl,470,34,11,59,breakfast
+57,Mango cottage cheese bowl,500,33,12,65,breakfast
+58,Peanut butter yogurt bowl,640,40,24,66,breakfast
+59,Berry quinoa breakfast bowl,560,25,16,79,breakfast
+60,Apple quinoa breakfast bowl,540,23,16,76,breakfast
+61,Blueberry protein pancakes,650,40,19,80,breakfast
+62,Banana protein pancakes,680,42,20,83,breakfast
+63,Cottage cheese pancakes,620,38,20,72,breakfast
+64,Oat waffles with berries,610,28,18,84,breakfast
+65,Peanut butter waffles,730,32,29,85,breakfast
+66,French toast with berries,620,30,20,80,breakfast
+67,French toast with yogurt,660,38,20,82,breakfast
+68,Banana breakfast smoothie,600,38,16,76,breakfast
+69,Chocolate banana smoothie,680,42,20,83,breakfast
+70,Peanut butter oat smoothie,750,42,27,85,breakfast
+71,Mango protein smoothie,570,36,13,77,breakfast
+72,Strawberry banana smoothie,590,35,15,79,breakfast
+73,Egg cheese bagel,590,32,22,66,breakfast|lunch
+74,Turkey egg bagel,680,45,22,75,breakfast|lunch
+75,Avocado egg bagel,650,30,29,67,breakfast|lunch
+76,Salmon avocado bagel,710,42,27,75,breakfast|lunch
+77,Chicken egg breakfast sandwich,690,50,22,73,breakfast|lunch
+78,Bean and cheese breakfast wrap,680,32,24,84,breakfast|lunch
+79,Turkey sausage breakfast wrap,720,40,28,77,breakfast|lunch
+80,Peanut butter banana oat bowl,760,36,28,91,breakfast
+81,Chicken fajita rice bowl,790,55,22,93,lunch|dinner
+82,Chicken teriyaki rice bowl,760,52,16,102,lunch|dinner
+83,Chicken pesto pasta,820,55,28,87,lunch|dinner
+84,Chicken tomato pasta,740,54,18,90,lunch|dinner
+85,Chicken mushroom risotto,750,50,23,86,lunch|dinner
+86,Chicken barley bowl,720,52,20,83,lunch|dinner
+87,Chicken quinoa bowl,730,52,25,74,lunch|dinner
+88,Chicken couscous bowl,740,54,20,86,lunch|dinner
+89,Chicken noodle stir-fry,780,52,24,89,lunch|dinner
+90,Chicken peanut noodle bowl,900,56,32,97,lunch|dinner
+91,Chicken black bean burrito,850,55,26,99,lunch|dinner
+92,Chicken avocado burrito,890,53,32,98,lunch|dinner
+93,Chicken hummus wrap,700,48,24,73,lunch|dinner
+94,Chicken pesto sandwich,720,48,24,78,lunch|dinner
+95,Chicken shawarma plate,810,52,30,83,lunch|dinner
+96,Chicken curry and rice,820,52,28,90,lunch|dinner
+97,Chicken coconut curry,860,48,36,86,lunch|dinner
+98,Chicken potato traybake,750,54,24,80,lunch|dinner
+99,Chicken bean chili,760,54,20,91,lunch|dinner
+100,Chicken enchilada plate,800,52,28,85,lunch|dinner
+101,Turkey meatballs and rice,750,48,24,85,lunch|dinner
+102,Turkey meatballs and pasta,800,50,26,91,lunch|dinner
+103,Turkey taco bowl,780,48,24,93,lunch|dinner
+104,Turkey fajita wrap,730,46,22,87,lunch|dinner
+105,Turkey lasagna,790,49,29,83,lunch|dinner
+106,Turkey shepherds pie,750,48,26,81,lunch|dinner
+107,Turkey bean burrito,830,50,26,99,lunch|dinner
+108,Turkey quinoa chili,760,48,22,93,lunch|dinner
+109,Turkey pesto pasta,820,50,28,92,lunch|dinner
+110,Turkey sweet potato bowl,740,48,24,82,lunch|dinner
+111,Beef burrito bowl,850,50,30,95,lunch|dinner
+112,Beef fajita rice,820,48,28,94,lunch|dinner
+113,Beef noodle stir-fry,820,49,28,92,lunch|dinner
+114,Beef broccoli rice bowl,780,48,24,93,lunch|dinner
+115,Beef and bean chili,830,50,27,97,lunch|dinner
+116,Beef shepherds pie,800,46,30,86,lunch|dinner
+117,Beef lasagna,860,48,34,90,lunch|dinner
+118,Beef bolognese pasta,840,50,28,97,lunch|dinner
+119,Beef meatball sandwich,780,44,28,88,lunch|dinner
+120,Steak potato plate,820,55,30,82,lunch|dinner
+121,Steak rice bowl,810,53,25,93,lunch|dinner
+122,Beef bean enchiladas,860,48,30,99,lunch|dinner
+123,Beef couscous bowl,780,46,26,91,lunch|dinner
+124,Beef lentil stew,740,48,22,87,lunch|dinner
+125,Beef mushroom pasta,810,48,27,94,lunch|dinner
+126,Salmon quinoa bowl,820,50,32,83,lunch|dinner
+127,Salmon rice bowl,850,50,32,90,lunch|dinner
+128,Salmon pasta with peas,810,48,29,89,lunch|dinner
+129,Salmon couscous plate,780,47,28,85,lunch|dinner
+130,Salmon sweet potato bowl,790,48,29,85,lunch|dinner
+131,Tuna bean rice bowl,740,52,18,92,lunch|dinner
+132,Tuna tomato pasta,750,52,17,97,lunch|dinner
+133,Tuna pesto pasta,810,50,25,96,lunch|dinner
+134,Tuna avocado wrap,700,43,25,76,lunch|dinner
+135,Tuna chickpea salad,690,45,22,78,lunch|dinner
+136,Shrimp peanut noodles,810,48,27,94,lunch|dinner
+137,Shrimp coconut curry,800,46,28,91,lunch|dinner
+138,Shrimp quinoa bowl,720,46,20,89,lunch|dinner
+139,Shrimp tomato pasta,740,50,16,98,lunch|dinner
+140,Shrimp fajita bowl,740,48,20,92,lunch|dinner
+141,Cod potato traybake,710,50,19,85,lunch|dinner
+142,Cod tomato rice bowl,720,49,16,95,lunch|dinner
+143,Fish taco plate,780,46,26,91,lunch|dinner
+144,Fish coconut curry,810,48,29,90,lunch|dinner
+145,Trout potato salad,780,46,28,86,lunch|dinner
+146,Pork rice stir-fry,790,48,25,93,lunch|dinner
+147,Pork noodle bowl,810,48,27,94,lunch|dinner
+148,Pork sweet potato plate,760,48,24,87,lunch|dinner
+149,Pork bean burrito,850,48,29,99,lunch|dinner
+150,Pork quinoa bowl,760,48,26,84,lunch|dinner
+151,Tofu peanut noodle bowl,830,36,30,104,lunch|dinner
+152,Tofu teriyaki rice bowl,760,35,22,105,lunch|dinner
+153,Tofu coconut curry,830,34,34,97,lunch|dinner
+154,Tofu black bean burrito,810,37,25,109,lunch|dinner
+155,Tofu quinoa salad,700,35,24,86,lunch|dinner
+156,Tofu vegetable fried rice,740,34,24,97,lunch|dinner
+157,Tofu sesame soba bowl,780,36,25,103,lunch|dinner
+158,Tofu chickpea curry,810,36,28,104,lunch|dinner
+159,Tofu lentil rice bowl,790,39,21,111,lunch|dinner
+160,Tofu mushroom noodles,740,34,24,97,lunch|dinner
+161,Tempeh rice bowl,820,42,28,100,lunch|dinner
+162,Tempeh peanut noodles,900,44,34,105,lunch|dinner
+163,Tempeh quinoa salad,760,40,28,87,lunch|dinner
+164,Tempeh bean burrito,860,43,28,109,lunch|dinner
+165,Tempeh vegetable curry,800,40,30,92,lunch|dinner
+166,Lentil bolognese pasta,780,35,20,115,lunch|dinner
+167,Lentil sweet potato curry,760,31,21,112,lunch|dinner
+168,Lentil quinoa bowl,740,33,20,107,lunch|dinner
+169,Lentil bean chili,750,36,18,111,lunch|dinner
+170,Lentil shepherds pie,730,32,22,102,lunch|dinner
+171,Chickpea spinach curry,790,29,25,112,lunch|dinner
+172,Chickpea tomato pasta,760,31,20,114,lunch|dinner
+173,Chickpea couscous bowl,720,29,20,106,lunch|dinner
+174,Chickpea hummus wrap,710,28,23,97,lunch|dinner
+175,Chickpea potato stew,740,28,20,112,lunch|dinner
+176,Black bean rice bowl,750,32,18,115,lunch|dinner
+177,Black bean sweet potato tacos,760,31,21,112,lunch|dinner
+178,Black bean quinoa burrito,810,35,23,116,lunch|dinner
+179,Bean and cheese quesadillas,820,37,30,100,lunch|dinner
+180,Three bean chili,740,34,16,115,lunch|dinner
+181,Vegetable lasagna,760,30,28,97,lunch|dinner
+182,Spinach ricotta pasta,780,34,28,98,lunch|dinner
+183,Mushroom risotto with peas,720,26,22,104,lunch|dinner
+184,Vegetable curry and rice,750,25,25,106,lunch|dinner
+185,Egg and tofu fried rice,790,37,26,102,lunch|dinner
+186,Egg and bean rice bowl,780,36,24,105,lunch|dinner
+187,Halloumi quinoa bowl,820,35,34,94,lunch|dinner
+188,Halloumi couscous salad,790,32,32,94,lunch|dinner
+189,Paneer spinach curry,860,36,36,98,lunch|dinner
+190,Paneer chickpea curry,900,38,36,106,lunch|dinner
+191,Chicken rice and beans,870,60,25,101,lunch|dinner
+192,Chicken potato and beans,840,58,26,94,lunch|dinner
+193,Turkey rice and beans,850,55,25,101,lunch|dinner
+194,Beef rice and beans,900,52,32,101,lunch|dinner
+195,Salmon rice and beans,910,52,34,99,lunch|dinner
+196,Tofu rice and edamame,830,46,27,101,lunch|dinner
+197,Chicken chickpea pasta,860,60,24,101,lunch|dinner
+198,Turkey lentil pasta,840,58,22,102,lunch|dinner
+199,Beef quinoa and beans,880,52,30,101,lunch|dinner
+200,Tempeh rice and beans,890,44,30,111,lunch|dinner
