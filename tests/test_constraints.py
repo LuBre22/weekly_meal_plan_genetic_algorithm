@@ -86,6 +86,49 @@ class ConstraintTests(unittest.TestCase):
                 with self.assertRaises(ValueError):
                     MacroConstraints(*macros, minimum, maximum)
 
+    def test_variety_rules_are_opt_in_and_count_overlaps(self):
+        catalog = MealCatalog((
+            Meal(1, "Any meal", 100, 10, 5, 15, ("breakfast", "lunch", "dinner")),
+            Meal(2, "Lunch", 200, 20, 10, 30, ("lunch",)),
+            Meal(3, "Dinner", 300, 30, 15, 45, ("dinner",)),
+        ))
+        plan = ((1, 1, 1),) + ((1, 2, 3),) * 6
+        args = (Macros(0, 0, 0), Macros(10000, 10000, 10000), 0, 10000)
+        default = MacroConstraints(*args).assess(plan, catalog)
+        explicit_off = MacroConstraints(*args, max_meal_occurrences=None).assess(plan, catalog)
+        self.assertEqual(default, explicit_off)
+        self.assertTrue(default.feasible)
+        restricted = MacroConstraints(*args, max_meal_occurrences=6).assess(plan, catalog)
+        self.assertFalse(restricted.feasible)
+        self.assertEqual(restricted.variety.daily_duplicates, 2)
+        self.assertEqual(restricted.variety.weekly_excess, 3)
+        self.assertAlmostEqual(restricted.score, -1 - 5 / 21)
+        self.assertLess(restricted.score, default.score)
+
+    def test_variety_weekly_cap_boundary_and_ranking(self):
+        constraints = MacroConstraints(
+            Macros(0, 0, 0), Macros(10000, 10000, 10000), 0, 10000,
+            max_meal_occurrences=7,
+        )
+        good = constraints.assess(self.plan, self.catalog)
+        self.assertTrue(good.feasible)
+        self.assertEqual(good.score, 420)
+        duplicate_catalog = MealCatalog((
+            Meal(1, "Breakfast", 100, 10, 5, 15, ("breakfast",)),
+            Meal(2, "Both", 200, 20, 10, 30, ("lunch", "dinner")),
+            Meal(3, "Dinner", 300, 30, 15, 45, ("dinner",)),
+        ))
+        duplicate = constraints.assess(((1, 2, 2),) + ((1, 2, 3),) * 6, duplicate_catalog)
+        self.assertEqual(duplicate.variety.daily_duplicates, 1)
+        self.assertEqual(duplicate.variety.weekly_excess, 1)
+        self.assertFalse(duplicate.feasible)
+        self.assertGreater(good.score, duplicate.score)
+
+    def test_invalid_variety_caps(self):
+        for value in (0, -1, 1.5, True):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                MacroConstraints(Macros(0, 0, 0), Macros(100, 100, 100), 0, 1000, value)
+
 
 if __name__ == "__main__":
     unittest.main()

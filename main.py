@@ -25,6 +25,10 @@ WEEKLY_MAX_FAT = 700
 WEEKLY_MAX_CARBS = 2625
 WEEKLY_MAX_CALORIES = 16100
 
+# Optional variety rules: set a positive per-meal weekly limit to enable.
+# None disables both the weekly limit and the same-day duplicate restriction.
+MAX_MEAL_OCCURRENCES = 2
+
 # Population and selection
 POPULATION_SIZE = 200
 ELITE_COUNT = 5
@@ -59,6 +63,10 @@ def main() -> int:
             f"--{name}", type=float, default=default, required=default is None, metavar=unit.upper(),
             help=f"Override the corresponding setting in main.py ({unit})",
         )
+    parser.add_argument(
+        "--max-meal-occurrences", type=int, default=MAX_MEAL_OCCURRENCES, metavar="COUNT",
+        help="Enable variety rules with a per-meal weekly maximum (default: disabled)",
+    )
     args = parser.parse_args()
     try:
         constraints = MacroConstraints(
@@ -66,6 +74,7 @@ def main() -> int:
             weekly_maximum=Macros(args.weekly_max_protein, args.weekly_max_fat, args.weekly_max_carbs),
             daily_min_calories=args.daily_min_calories,
             weekly_max_calories=args.weekly_max_calories,
+            max_meal_occurrences=args.max_meal_occurrences,
         )
     except ValueError as exc:
         parser.error(str(exc))
@@ -98,7 +107,7 @@ def main() -> int:
         print("Constraints satisfied; maximizing weekly protein.")
     else:
         print("No feasible plan found in this run; showing the least-violating candidate.")
-    print(format_report(report, violations=assessment.violations))
+    print(format_report(report, violations=assessment.violations, variety=assessment.variety))
     return 0 if assessment.feasible else 2
 
 

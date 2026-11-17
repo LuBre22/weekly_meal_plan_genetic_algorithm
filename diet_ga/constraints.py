@@ -1,10 +1,11 @@
 """Daily nutrition minimums and weekly nutrition maximums."""
 
 import math
+from collections import Counter
 from dataclasses import dataclass
-from typing import Tuple
+from typing import Optional, Tuple
 
-from .meals import DAYS_PER_WEEK, MealCatalog, Plan
+from .meals import DAYS_PER_WEEK, MEAL_TYPES, MealCatalog, Plan
 from .report import weekly_report
 from .selection import ScoredPlan
 
@@ -30,19 +31,36 @@ class Violation:
 
 
 @dataclass(frozen=True)
+class VarietyViolations:
+    daily_duplicates: int
+    weekly_excess: int
+
+
+@dataclass(frozen=True)
 class Assessment:
     weekly_protein: float
     violations: Tuple[Violation, ...]
+    variety: Optional[VarietyViolations] = None
 
     @property
     def feasible(self) -> bool:
-        return not self.violations
+        return not self.violations and (
+            self.variety is None or (
+                self.variety.daily_duplicates == 0 and self.variety.weekly_excess == 0
+            )
+        )
 
     @property
     def score(self) -> float:
         if self.feasible:
             return self.weekly_protein
-        return -1.0 - sum(v.amount / max(v.limit, 1.0) for v in self.violations)
+        nutrition_penalty = sum(v.amount / max(v.limit, 1.0) for v in self.violations)
+        variety_penalty = 0.0
+        if self.variety is not None:
+            variety_penalty = (
+                self.variety.daily_duplicates + self.variety.weekly_excess
+            ) / (DAYS_PER_WEEK * len(MEAL_TYPES))
+        return -1.0 - nutrition_penalty - variety_penalty
 
 
 @dataclass(frozen=True)
@@ -51,8 +69,15 @@ class MacroConstraints:
     weekly_maximum: Macros
     daily_min_calories: float
     weekly_max_calories: float
+    max_meal_occurrences: Optional[int] = None
 
     def __post_init__(self) -> None:
+        if self.max_meal_occurrences is not None and (
+            isinstance(self.max_meal_occurrences, bool)
+            or not isinstance(self.max_meal_occurrences, int)
+            or self.max_meal_occurrences < 1
+        ):
+            raise ValueError("Maximum meal occurrences must be a positive integer")
         limits = [
             (field, getattr(self.daily_minimum, field), getattr(self.weekly_maximum, field))
             for field in ("protein_g", "fat_g", "carbs_g")
@@ -86,4 +111,12 @@ class MacroConstraints:
             limit = getattr(self.weekly_maximum, field)
             if actual > limit:
                 violations.append(Violation("Week", field, actual, limit, "maximum"))
-        return Assessment(report.weekly_total.protein_g, tuple(violations))
+        variety = None
+        if self.max_meal_occurrences is not None:
+            daily_duplicates = sum(len(day) - len(set(day)) for day in plan)
+            counts = Counter(meal_id for day in plan for meal_id in day)
+            weekly_excess = sum(
+                max(0, count - self.max_meal_occurrences) for count in counts.values()
+            )
+            variety = VarietyViolations(daily_duplicates, weekly_excess)
+        return Assessment(report.weekly_total.protein_g, tuple(violations), variety)

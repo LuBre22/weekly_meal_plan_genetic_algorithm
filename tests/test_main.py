@@ -71,7 +71,7 @@ raise SystemExit(main.main())
         self.assertIn("No feasible plan found", result.stdout)
         lines = result.stdout.splitlines()
         weekly_index = next(i for i, line in enumerate(lines) if line.startswith("Weekly total:"))
-        self.assertTrue(lines[weekly_index + 1].startswith("Daily shortfalls (sum over week):"))
+        self.assertTrue(lines[weekly_index + 1].startswith("Weekly shortfalls:"))
         self.assertRegex(lines[weekly_index + 2], r"Weekly excess: calories [\d.]+ kcal \| protein [\d.]+ g")
         self.assertTrue(lines[weekly_index + 3].startswith("Daily average:"))
         result = subprocess.run(
@@ -147,7 +147,7 @@ raise SystemExit(main.main())
             cwd=ROOT, capture_output=True, text=True,
         )
         self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
-        self.assertRegex(result.stdout, r"Daily shortfalls \(sum over week\): calories [1-9][\d.]* kcal")
+        self.assertRegex(result.stdout, r"Weekly shortfalls: calories [1-9][\d.]* kcal")
         limits[-3:] = ["0", "--weekly-max-calories", "0"]
         result = subprocess.run(
             [sys.executable, str(ROOT / "main.py"), *limits],
@@ -155,6 +155,59 @@ raise SystemExit(main.main())
         )
         self.assertEqual(result.returncode, 2)
         self.assertRegex(result.stdout, r"Weekly excess: calories [1-9][\d.]* kcal")
+
+    def test_variety_flag_enables_validation_and_optional_constraints(self):
+        invalid = subprocess.run(
+            [sys.executable, str(ROOT / "main.py"), *LIMITS, "--max-meal-occurrences", "0"],
+            cwd=ROOT, capture_output=True, text=True,
+        )
+        self.assertNotEqual(invalid.returncode, 0)
+        self.assertIn("Maximum meal occurrences must be a positive integer", invalid.stderr)
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "main.py"), *LIMITS, "--max-meal-occurrences", "1"],
+            cwd=ROOT, capture_output=True, text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("Constraints satisfied", result.stdout)
+        self.assertNotIn("Variety violations:", result.stdout)
+        meals = [
+            line.split(":", 1)[1].strip()
+            for line in result.stdout.splitlines()
+            if line.strip().startswith(("Breakfast:", "Lunch:", "Dinner:"))
+        ]
+        self.assertEqual(len(meals), 21)
+        self.assertEqual(len(set(meals)), 21)
+
+    def test_infeasible_variety_is_reported_by_main(self):
+        script = """
+import main
+from diet_ga.meals import Meal, MealCatalog
+catalog = MealCatalog((
+    Meal(1, "Breakfast", 100, 10, 5, 15, ("breakfast",)),
+    Meal(2, "Lunch dinner", 200, 20, 10, 30, ("lunch", "dinner")),
+))
+main.MealCatalog.from_csv = lambda path: catalog
+main.POPULATION_SIZE = 4
+main.ELITE_COUNT = 1
+main.IMMIGRANT_COUNT = 1
+main.TOURNAMENT_SIZE = 2
+main.GENERATIONS = 2
+main.MIN_EXPLORATION_GENERATIONS = 0
+main.MAX_EXPLORATION_GENERATIONS = 1
+main.RANDOM_SEED = 1
+raise SystemExit(main.main())
+"""
+        result = subprocess.run(
+            [sys.executable, "-c", script, *LIMITS, "--max-meal-occurrences", "1"],
+            cwd=ROOT, capture_output=True, text=True,
+        )
+        self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+        self.assertIn("No feasible plan found", result.stdout)
+        self.assertIn(
+            "Variety violations: daily duplicate occurrences 7 | weekly excess occurrences 19",
+            result.stdout,
+        )
+        self.assertNotIn("Weekly shortfalls:", result.stdout)
 
 
 if __name__ == "__main__":

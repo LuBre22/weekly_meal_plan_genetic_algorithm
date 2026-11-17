@@ -9,7 +9,7 @@ from unittest.mock import patch
 if __name__ == "__main__" and not __package__:
     sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from diet_ga.constraints import Violation
+from diet_ga.constraints import VarietyViolations, Violation
 from diet_ga.meals import Meal, MealCatalog
 from diet_ga.population import initialize_population
 from diet_ga.report import format_report, run_with_report, weekly_report
@@ -72,9 +72,30 @@ class ReportTests(unittest.TestCase):
         self.assertEqual(lines[index + 2],
                          "Weekly excess: calories 100 kcal | protein 10 g | fat 0 g | carbs 0 g")
         self.assertEqual(lines[index + 1],
-                         "Daily shortfalls (sum over week): calories 150 kcal | protein 5 g | fat 0 g | carbs 0 g")
+                         "Weekly shortfalls: calories 150 kcal | protein 5 g | fat 0 g | carbs 0 g")
         self.assertTrue(lines[index + 3].startswith("Daily average:"))
-        self.assertNotIn("Daily shortfalls", format_report(report))
+        self.assertNotIn("Weekly shortfalls", format_report(report))
+
+    def test_variety_summary_is_distinct_from_nutrition(self):
+        report = weekly_report(ScoredPlan(self.plan, -1), self.catalog)
+        lines = format_report(report, variety=VarietyViolations(2, 3)).splitlines()
+        index = next(i for i, line in enumerate(lines) if line.startswith("Weekly total:"))
+        self.assertEqual(lines[index + 1],
+                         "Variety violations: daily duplicate occurrences 2 | weekly excess occurrences 3")
+        self.assertTrue(lines[index + 2].startswith("Daily average:"))
+        self.assertNotIn("Weekly shortfalls", "\n".join(lines))
+        self.assertNotIn("Variety violations", format_report(report, variety=VarietyViolations(0, 0)))
+
+    def test_variety_and_nutrition_violations_both_shown(self):
+        report = weekly_report(ScoredPlan(self.plan, -1), self.catalog)
+        lines = format_report(
+            report, violations=(Violation("Week", "protein_g", 460, 450, "maximum"),),
+            variety=VarietyViolations(1, 2),
+        ).splitlines()
+        index = next(i for i, line in enumerate(lines) if line.startswith("Weekly total:"))
+        self.assertTrue(lines[index + 1].startswith("Weekly shortfalls:"))
+        self.assertTrue(lines[index + 2].startswith("Weekly excess:"))
+        self.assertTrue(lines[index + 3].startswith("Variety violations:"))
 
     def test_invalid_plans_fail_explicitly(self):
         for plan in (self.plan[:-1], ((1, 2),) * 7, ((999, 2, 3),) * 7, ((2, 1, 3),) * 7):

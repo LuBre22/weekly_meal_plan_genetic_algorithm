@@ -11,7 +11,7 @@ from .selection import Fitness, ScoredPlan
 from .strategy import run_evolution
 
 if TYPE_CHECKING:
-    from .constraints import Violation
+    from .constraints import VarietyViolations, Violation
 
 DAY_NAMES = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
@@ -175,7 +175,10 @@ def run_with_report(
     return WeeklyReport(report.score, report.days, report.weekly_total, report.daily_average, statistics)
 
 
-def format_report(report: WeeklyReport, *, violations: Sequence["Violation"] = ()) -> str:
+def format_report(
+    report: WeeklyReport, *, violations: Sequence["Violation"] = (),
+    variety: Optional["VarietyViolations"] = None,
+) -> str:
     """Format the report as readable plain text."""
     def nutrition(values: Nutrition) -> str:
         return (
@@ -209,6 +212,11 @@ def format_report(report: WeeklyReport, *, violations: Sequence["Violation"] = (
                 )
                 parts.append(f"{name} {amount:g} {unit}")
             lines.append(f"{label}: {' | '.join(parts)}")
+    if variety is not None and (variety.daily_duplicates or variety.weekly_excess):
+        lines.append(
+            f"Variety violations: daily duplicate occurrences {variety.daily_duplicates}"
+            f" | weekly excess occurrences {variety.weekly_excess}"
+        )
     lines.append(f"Daily average: {nutrition(report.daily_average)}")
     if report.statistics is not None:
         stats = report.statistics
